@@ -1,0 +1,30 @@
+@import '~antd/lib/style/themes/default.less';
+@import '~@/style/themes/default.less';
+
+.app-icon {
+  display: inline-block;
+  // vertical-align: top;
+  line-height: 1em !important;
+  transition: all 0.4s;
+  user-select: none;
+
+  &.hasAction {
+    color: @default-action-icon-color;
+    cursor: pointer;
+
+    &:hover {
+      color: @primary-color;
+    }
+  }
+
+  .icon-symbol,
+  svg {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    line-height: 1;
+    fill: currentColor;
+    // stroke: currentColor;
+    vertical-align: top;
+  }
+}

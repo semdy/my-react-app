@@ -1,0 +1,41 @@
+@import '~antd/lib/style/themes/default.less';
+@import '~@/style/themes/default.less';
+
+.app-icon-button {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 0.572em;
+  background-color: #fff;
+  // box-shadow: 0 6px 12px rgba(113, 122, 249, 0.09);
+  border-radius: 5px;
+  line-height: 0;
+  color: @default-action-icon-color;
+  cursor: pointer;
+  transition: all 0.4s;
+
+  .app-icon {
+    transition: none;
+  }
+
+  &:hover {
+    color: @primary-color;
+  }
+
+  &.round {
+    border-radius: 50%;
+  }
+
+  &.plain {
+    border-color: @default-action-icon-color;
+    background-color: transparent;
+    box-shadow: none;
+
+    &:hover {
+      border-color: @primary-color;
+    }
+  }
+
+  &.bordered {
+    border: 1px solid #dedde3;
+  }
+}

@@ -1,0 +1,7 @@
+**/*.md
+**/*.svg
+**/*.ejs
+**/*.html
+/src/components/Icon/icons/**/*
+/public
+package.json

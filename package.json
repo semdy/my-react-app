@@ -1,28 +1,81 @@
 {
   "name": "my-react-app",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.16.1",
-    "@testing-library/react": "^12.1.2",
-    "@testing-library/user-event": "^13.5.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-scripts": "5.0.0",
-    "web-vitals": "^2.1.3"
+  "main": "electron/main.js",
+  "description": "Imsdom Application",
+  "copyright": "©2019, Imsdom inc.",
+  "author": {
+    "name": "imsdom staff",
+    "email": "imsdom@imsdom.com",
+    "url": "https://www.imsdom.com"
+  },
+  "contributors": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.imsdom.com/client/pc-client"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "node scripts/start.js",
+    "start:n": "concurrently \"npm run watch:icons\" \"node scripts/start.js\"",
+    "start:https": "cross-env HTTPS=true npm run start",
+    "start:main": "cross-env NODE_ENV=development HOT=true webpack --config ./config/webpack.config.main.js",
+    "start:renderer": "cross-env PORT=3132 DEBUG_PROD=true REACT_APP_ENV=electron REACT_APP_TYPE=win HOT=true npm run start",
+    "start:prod": "cross-env DEBUG_PROD=true npm run build:app && electron electron/main.js",
+    "prestart": "npm run build:icons",
+    "watch:icons": "node scripts/watch-icons.js",
+    "build:icons": "node scripts/build-icons.js",
+    "color-less": "node scripts/generate-color-less.js",
+    "open-electron": "cross-env HOT=true node scripts/open-cli.js",
+    "prebuild": "npm run build:icons",
+    "build": "cross-env GENERATE_SOURCEMAP=true node scripts/build.js",
+    "build:analyzer": "cross-env OPEN_ANALYZER=true npm run build",
+    "build:renderer": "cross-env REACT_APP_ENV=electron npm run build",
+    "build:main": "node scripts/build-main.js",
+    "build:main-analyzer": "cross-env OPEN_ANALYZER=true npm run build:main",
+    "prebuild:app": "node scripts/generate-electron-builder.js",
+    "build:app": "npm run build:main && npm run build:renderer",
+    "package": "cross-env APP_ARCH=x64 npm run build:app && electron-builder build --publish never",
+    "package:all": "cross-env APP_ARCH=x64 npm run build:app && electron-builder build -mwl",
+    "package:mac": "cross-env REACT_APP_TYPE=mac APP_ARCH=x64 npm run build:app && electron-builder build --mac",
+    "package:mas": "cross-env APP_ARCH=x64 CSC_NAME=\"Apple Distribution: Guohua Tang (LMT8H84Y56)\" npm run package:mac && bash build/macos/resignAndPackage.sh",
+    "package:mac-test": "cross-env REACT_APP_RUN_ENV=test APP_ARCH=x64 npm run package:mac",
+    "package:mac-prod": "cross-env REACT_APP_RUN_ENV=release APP_ARCH=x64 npm run package:mac",
+    "package:mac-stage": "cross-env REACT_APP_RUN_ENV=stage APP_ARCH=x64 npm run package:mac",
+    "package:linux": "cross-env REACT_APP_TYPE=linux APP_ARCH=x64 npm run build:app && electron-builder build --linux",
+    "package:linux-arm64": "cross-env REACT_APP_TYPE=linux APP_ARCH=arm64 npm run build:app && electron-builder build --linux --arm64",
+    "package:linux-test": "cross-env REACT_APP_RUN_ENV=test APP_ARCH=x64 npm run package:linux",
+    "package:linux-prod": "cross-env REACT_APP_RUN_ENV=release APP_ARCH=x64 npm run package:linux",
+    "package:linux-prod-arm64": "cross-env REACT_APP_RUN_ENV=release APP_ARCH=arm64 npm run package:linux-arm64",
+    "package:linux-stage": "cross-env REACT_APP_RUN_ENV=stage APP_ARCH=x64 npm run package:linux",
+    "package:win": "cross-env REACT_APP_TYPE=win APP_ARCH=x64 npm run build:app && electron-builder build --win --x64",
+    "package:win-32": "cross-env REACT_APP_TYPE=win APP_ARCH=ia32 npm run build:app && electron-builder build --win --ia32",
+    "package:win-test": "cross-env REACT_APP_RUN_ENV=test APP_ARCH=x64 npm run package:win",
+    "package:win-prod": "cross-env REACT_APP_RUN_ENV=release APP_ARCH=x64 npm run package:win",
+    "package:win-prod-32": "cross-env REACT_APP_RUN_ENV=release APP_ARCH=ia32 npm run package:win-32",
+    "package:win-stage": "cross-env REACT_APP_RUN_ENV=stage APP_ARCH=x64 npm run package:win",
+    "package:win-debug": "cross-env DEBUG_PROD=true APP_ARCH=x64 npm run package:win",
+    "build:mac": "cross-env APP_ARCH=x64 npm run build:main && electron-builder build --mac",
+    "build:win": "cross-env APP_ARCH=x64 npm run build:main && electron-builder build --win --x64",
+    "electron-rebuild": "node scripts/internals/ElectronRebuild.js",
+    "install-app-deps": "node scripts/internals/CheckNativeDep.js && electron-builder install-app-deps",
+    "postinstall": "npm run install-app-deps",
+    "test": "node scripts/test.js",
+    "lint:style": "stylelint \"src/**/*.less\" --syntax less",
+    "lint:prettier": "check-prettier lint",
+    "lint": "eslint --ext .js src mock tests && npm run lint:style && npm run lint:prettier",
+    "lint:fix": "eslint --fix --ext .js src mock tests && npm run lint:style",
+    "lint-staged": "lint-staged",
+    "lint-staged:js": "eslint --ext .js",
+    "prettier": "node scripts/prettier.js",
+    "intl-extract-compile": "node scripts/intl-extract-compile.js"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
+  "homepage": "./",
+  "license": "ISC",
+  "sideEffects": [
+    "*.csss",
+    "*.less"
+  ],
   "browserslist": {
     "production": [
       ">0.2%",
@@ -34,5 +87,211 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "react-app"
+    ],
+    "plugins": [
+      [
+        "@babel/plugin-proposal-decorators",
+        {
+          "legacy": true
+        }
+      ],
+      [
+        "formatjs",
+        {
+          "idInterpolationPattern": "[sha512:contenthash:base64:6]",
+          "ast": false
+        }
+      ],
+      [
+        "import",
+        {
+          "libraryName": "antd",
+          "libraryDirectory": "es",
+          "style": true
+        }
+      ]
+    ]
+  },
+  "lint-staged": {
+    "src/**/*.{js,ts,tsx,json,jsx,less}": [
+      "node scripts/lint-prettier.js",
+      "git add"
+    ],
+    "electron/**/*.{js,ts,tsx,json,jsx,less}": [
+      "node scripts/lint-prettier.js",
+      "git add"
+    ],
+    "src/**/*.{js,jsx}": "npm run lint-staged:js",
+    "electron/**/*.{js,jsx}": "npm run lint-staged:js",
+    "**/*.less": "stylelint --syntax less"
+  },
+  "checkFiles": [
+    "src/**/*.js*",
+    "src/**/*.ts*",
+    "src/**/*.less",
+    "config/**/*.js*",
+    "scripts/**/*.js"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint-staged"
+    }
+  },
+  "jest": {
+    "roots": [
+      "<rootDir>/src"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!src/**/*.d.ts"
+    ],
+    "setupFiles": [
+      "react-app-polyfill/jsdom"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/setupTests.js"
+    ],
+    "testMatch": [
+      "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
+      "<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}"
+    ],
+    "testEnvironment": "jsdom",
+    "transform": {
+      "^.+\\.(js|jsx|mjs|cjs|ts|tsx)$": "<rootDir>/config/jest/babelTransform.js",
+      "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
+      "^(?!.*\\.(js|jsx|mjs|cjs|ts|tsx|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
+    },
+    "transformIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs|cjs|ts|tsx)$",
+      "^.+\\.module\\.(css|sass|scss)$"
+    ],
+    "modulePaths": [],
+    "moduleNameMapper": {
+      "^react-native$": "react-native-web",
+      "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy"
+    },
+    "moduleFileExtensions": [
+      "web.js",
+      "js",
+      "web.ts",
+      "ts",
+      "web.tsx",
+      "tsx",
+      "json",
+      "web.jsx",
+      "jsx",
+      "node"
+    ],
+    "watchPlugins": [
+      "jest-watch-typeahead/filename",
+      "jest-watch-typeahead/testname"
+    ],
+    "resetMocks": true
+  },
+  "dependencies": {
+    "antd": "4.18.3",
+    "dayjs": "^1.10.7",
+    "react": "17.0.2",
+    "react-app-polyfill": "3.0.0",
+    "react-dom": "17.0.2"
+  },
+  "devDependencies": {
+    "@ant-design/dark-theme": "^2.0.2",
+    "@babel/core": "^7.16.0",
+    "@babel/eslint-parser": "^7.16.5",
+    "@babel/plugin-proposal-decorators": "^7.16.7",
+    "@formatjs/cli": "^4.7.1",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
+    "@svgr/webpack": "^5.5.0",
+    "@testing-library/jest-dom": "^5.16.1",
+    "@testing-library/react": "^12.1.2",
+    "@testing-library/user-event": "^13.5.0",
+    "antd-dayjs-webpack-plugin": "^1.0.6",
+    "antd-theme-generator": "^1.2.11",
+    "babel-jest": "^27.4.2",
+    "babel-loader": "^8.2.3",
+    "babel-plugin-formatjs": "^10.3.15",
+    "babel-plugin-import": "^1.13.3",
+    "babel-plugin-named-asset-import": "^0.3.8",
+    "babel-preset-react-app": "^10.0.1",
+    "bfj": "^7.0.2",
+    "browserslist": "^4.18.1",
+    "camelcase": "^6.2.1",
+    "case-sensitive-paths-webpack-plugin": "^2.4.0",
+    "concurrently": "^7.0.0",
+    "cross-env": "^7.0.3",
+    "css-loader": "^6.5.1",
+    "css-minimizer-webpack-plugin": "^3.2.0",
+    "detect-port": "^1.3.0",
+    "devtron": "^1.4.0",
+    "dotenv": "^10.0.0",
+    "dotenv-expand": "^5.1.0",
+    "electron": "^16.0.6",
+    "electron-builder": "^22.14.5",
+    "electron-notarize": "^1.1.1",
+    "eslint": "^8.3.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-react-app": "^7.0.0",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-plugin-compat": "^4.0.1",
+    "eslint-plugin-formatjs": "^2.20.2",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-webpack-plugin": "^3.1.1",
+    "file-loader": "^6.2.0",
+    "fs-extra": "^10.0.0",
+    "gulp-watch": "^5.0.1",
+    "html-webpack-plugin": "^5.5.0",
+    "husky": "^7.0.4",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^27.4.3",
+    "jest-resolve": "^27.4.2",
+    "jest-watch-typeahead": "^1.0.0",
+    "less": "^4.1.2",
+    "less-loader": "^10.2.0",
+    "lint-staged": "^12.1.7",
+    "mini-css-extract-plugin": "^2.4.5",
+    "postcss": "^8.4.4",
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-loader": "^6.2.1",
+    "postcss-normalize": "^10.0.1",
+    "postcss-preset-env": "^7.0.1",
+    "postcss-pxtorem": "^6.0.0",
+    "prettier": "^2.5.1",
+    "progress-bar-webpack-plugin": "^2.1.0",
+    "prompts": "^2.4.2",
+    "react-dev-utils": "^12.0.0",
+    "react-refresh": "^0.11.0",
+    "redux-logger": "^3.0.6",
+    "resolve": "^1.20.0",
+    "resolve-url-loader": "^4.0.0",
+    "sass-loader": "^12.3.0",
+    "semver": "^7.3.5",
+    "source-map-loader": "^3.0.0",
+    "style-loader": "^3.3.1",
+    "stylelint": "^14.2.0",
+    "stylelint-config-prettier": "^9.0.3",
+    "stylelint-config-standard": "^24.0.0",
+    "tailwindcss": "^3.0.2",
+    "terser-webpack-plugin": "^5.2.5",
+    "web-vitals": "^2.1.3",
+    "webpack": "^5.64.4",
+    "webpack-bundle-analyzer": "^4.5.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.6.0",
+    "webpack-manifest-plugin": "^4.0.2",
+    "webpack-node-externals": "^3.0.0",
+    "workbox-webpack-plugin": "^6.4.1"
   }
 }

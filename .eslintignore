@@ -1,0 +1,9 @@
+dist/*
+/scripts
+/config
+/src/sw.js
+/src/ci.workbox.js
+/electron/main.js
+/public
+/src/components/Icon/icons/**/*
+electron-builder.yml

@@ -1,0 +1,173 @@
+@import '~antd/lib/style/themes/default.less';
+@import '~@/style/themes/default.less';
+@import '~@/style/mixins/ellipsis.less';
+
+.user-guide {
+  &-modal {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 430px;
+    z-index: 2000;
+    background-color: #fff;
+    box-shadow: 0 7px 20px rgba(190, 190, 190, 0.21), 0 -7px 20px rgba(190, 190, 190, 0.21);
+    border-radius: 4px;
+    -webkit-app-region: no-drag;
+
+    &-hd {
+      display: flex;
+      align-items: center;
+      padding: 20px 20px 0;
+    }
+
+    &-title {
+      margin: 0 15px 0 0;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    &-switch {
+      padding: 1px 8px;
+      background: #f1f1ff;
+      color: #5258dd;
+      font-size: 13px;
+      border-radius: 3px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: darken(#f1f1ff, 5%);
+      }
+    }
+
+    &-close {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      font-size: 17px;
+      color: #666;
+    }
+
+    &-slogan {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    &-content {
+      padding: 20px;
+      max-height: calc(100vh - 82px);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+
+  &-helpers {
+    padding: 20px 12px;
+
+    &.skipMode {
+      padding-left: 0;
+    }
+  }
+
+  &-helper {
+    margin-bottom: 25px;
+
+    h4 {
+      font-size: 14px;
+      font-weight: bold;
+
+      .app-icon {
+        font-size: 17px;
+        margin-right: 10px;
+      }
+    }
+
+    &-content {
+      margin-bottom: 12px;
+    }
+  }
+
+  &-tasks {
+    min-height: 256px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e9e8ed;
+  }
+
+  &-task {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 42px;
+    padding-left: 12px;
+    padding-right: 12px;
+    border-radius: 4px;
+    margin-bottom: 5px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.03);
+    }
+
+    &.checked {
+      background: #e8e9ff;
+    }
+
+    &-desc {
+      flex: 1;
+      .ellipsis();
+      font-size: 13px;
+
+      .app-icon {
+        font-size: 17px;
+        margin-right: 10px;
+      }
+    }
+
+    &-check {
+      color: @primary-color;
+      margin-right: 18px;
+      font-size: 20px;
+      flex: none;
+    }
+
+    .ant-btn {
+      margin-left: 8px;
+      border-radius: 4px;
+      background-color: #fff !important;
+      flex: none;
+      font-size: 13px;
+    }
+  }
+
+  &-finish-celebrate {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 3000;
+    -webkit-app-region: no-drag;
+
+    &-content {
+      position: relative;
+      width: 741px;
+      height: 413px;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    &-close {
+      position: absolute;
+      right: 20px;
+      top: -50px;
+      font-size: 25px;
+      color: #333;
+      cursor: pointer;
+    }
+  }
+}

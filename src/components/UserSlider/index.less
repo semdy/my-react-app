@@ -1,0 +1,50 @@
+@import '~antd/lib/style/themes/default.less';
+
+.ant-carousel {
+  .slick-slide {
+    text-align: center;
+    height: 480px;
+    line-height: 480px;
+    // background: lighten(@primary-color, 15%);
+    background-color: #fff;
+    overflow: hidden;
+  }
+
+  .slick-dots-bottom {
+    bottom: 20px;
+  }
+
+  h3 {
+    margin: 0;
+  }
+  .slick-dots li {
+    margin-left: 4px;
+    margin-right: 4px;
+    button {
+      margin-top: 10px;
+      width: 12px !important;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #bbb;
+    }
+    &.slick-active button {
+      background: #bbb;
+    }
+  }
+}
+.one {
+  background: url(~@/assets/img/slider-one.png) no-repeat center;
+  background-size: 384px 480px;
+}
+.two {
+  background: url(~@/assets/img/slider-two.png) no-repeat center;
+  background-size: 384px 480px;
+}
+.three {
+  background: url(~@/assets/img/slider-three.png) no-repeat center;
+  background-size: 384px 480px;
+}
+.four {
+  background: url(~@/assets/img/slider-four.png) no-repeat center;
+  background-size: 384px 480px;
+}

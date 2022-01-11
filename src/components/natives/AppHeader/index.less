@@ -1,0 +1,53 @@
+@import '~@/style/themes/default.less';
+
+.mac-native-header {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 36px;
+  background-color: transparent;
+  z-index: 5000;
+  -webkit-app-region: drag;
+}
+
+.app-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: #fff;
+  height: @main-window-toolbar-height;
+  border-bottom: 1px solid #e0e0e0;
+  z-index: 5000;
+  -webkit-app-region: drag;
+
+  &-item {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    // width: @main-window-toolbar-height;
+    height: @main-window-toolbar-height;
+    color: #000;
+    -webkit-app-region: no-drag;
+  }
+
+  .anticon {
+    font-size: 13px;
+    display: inline-block;
+    padding: 0 11px;
+  }
+
+  &-item.grey {
+    &:hover {
+      background-color: #ddd;
+    }
+  }
+
+  &-item.red {
+    &:hover {
+      background-color: #c00;
+      color: #fff !important;
+    }
+  }
+}

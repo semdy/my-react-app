@@ -1,0 +1,98 @@
+@import '~@/style/themes/default.less';
+
+.meeting-search {
+  width: 100%;
+
+  &-dropdown {
+    background-color: darken(#333, 5%) !important;
+    z-index: 3005;
+
+    .ant-select-dropdown-menu {
+      &::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+      }
+    }
+
+    .rc-virtual-list-scrollbar {
+      width: 4px !important;
+    }
+
+    .ant-select-item {
+      color: #fff !important;
+    }
+
+    .ant-select-item-option-selected,
+    .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
+      background-color: fadeout(#000, 50%) !important;
+    }
+  }
+
+  .ant-input-affix-wrapper {
+    background-color: #474747 !important;
+    border-width: 0 !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .ant-input {
+    color: #bbb !important;
+    background-color: transparent !important;
+
+    &:focus {
+      box-shadow: none !important;
+    }
+  }
+
+  .ant-input-prefix,
+  .ant-input-suffix {
+    color: #bbb !important;
+
+    .anticon {
+      color: inherit !important;
+    }
+  }
+
+  &-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    font-size: 13px;
+    line-height: 1.2;
+
+    &.joined {
+      cursor: default;
+    }
+
+    .app-avatar {
+      float: left;
+      margin-right: 8px;
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      font-size: 100%;
+    }
+
+    &-nick {
+      margin-bottom: 3px;
+    }
+
+    &-depart {
+      font-size: 10px;
+      color: #b6b6b6;
+      text-size-adjust: none;
+    }
+
+    &-extra {
+      font-size: 12px;
+      font-weight: normal;
+    }
+
+    .netcall-button {
+      border-radius: 4px;
+      padding: 0.4em;
+    }
+  }
+}

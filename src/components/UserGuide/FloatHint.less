@@ -1,0 +1,33 @@
+.user-guide-floater {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  box-shadow: -2px 0 13px rgba(100, 100, 115, 0.12);
+  border-radius: 20px 0 0 20px;
+  padding-right: 12px;
+  cursor: pointer;
+  color: #333;
+  z-index: 1150;
+  transform: translate3d(114px, 0, 0);
+  transition: transform 0.3s ease;
+
+  .app-icon {
+    height: 100%;
+    padding-right: 5px;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+  }
+
+  &.expand {
+    transform: translate3d(0, 0, 0);
+
+    .app-icon svg {
+      transform: rotate(-180deg);
+    }
+  }
+}

@@ -1,0 +1,80 @@
+afterSign: "build/macos/afterSignHook.js"
+directories:
+  output: output/${env.REACT_APP_RUN_ENV}/${env.APP_ARCH}
+  buildResources: resources
+appId: com.imsdom.desktop.app
+productName: Imsdom
+asar: ${asar}
+files: ['electron/dist/**/*', 'electron/main.js', 'resources/**/*', '!resources/plugins/**/*', 'package.json']
+
+protocols:
+  name: 'imsdomapp-protocol'
+  schemes: [
+    'imsdomapp'
+  ]
+
+nsis:
+  oneClick: false
+  allowElevation: true
+  perMachine: true
+  allowToChangeInstallationDirectory: true
+  artifactName: ${productName}-Setup-${env.REACT_APP_RUN_ENV}-${os}-${env.APP_ARCH}-${version}.${ext}
+  installerIcon: resources/icon.ico
+  uninstallerIcon: resources/icon.ico
+  installerHeaderIcon: resources/icon.ico
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  deleteAppDataOnUninstall: true
+
+##
+# The target package type: list of nsis, nsis-web (Web installer), portable (portable app without installation), appx, msi, squirrel, 7z, zip, tar.xz, tar.lz, tar.gz, tar.bz2, dir. AppX package can be built only on Windows 10.
+win:
+  target:
+    - nsis
+    # - portable
+  icon: resources/icon.ico
+  extraResources: [{ from: './resources/plugins/screenshot-win', to: './plugins/screenshot-win' }]
+
+##
+# The target package type: list of default, dmg, mas, mas-dev, pkg, 7z, zip, tar.xz, tar.lz, tar.gz, tar.bz2, dir. Defaults to default (dmg and zip for Squirrel.Mac).
+mac:
+  target: [dmg, zip]
+  category: public.app-category.productivity
+  darkModeSupport: true
+  hardenedRuntime: true
+  gatekeeperAssess: false
+  icon: resources/icon.icns
+  type: distribution
+  identity: 'Shanghai yinshitong Information Technology Co., Ltd (R8D7Y9W3Z3)'
+  provisioningProfile: build/desktop.provisionprofile
+  entitlements: build/macos/entitlements.plist
+  entitlementsInherit: build/macos/entitlements.plist
+  extendInfo:
+    NSCameraUsageDescription: 'Imsdom needs access to the camera'
+    NSMicrophoneUsageDescription: 'Imsdom needs access to the microphone'
+  extraResources: [{ 'from': './resources/plugins/screenshot-mac', 'to': './plugins/screenshot-mac' }]
+
+##
+# mas: {
+#   hardenedRuntime: false,
+#   #provisioningProfile: build/macos/imsdomdesktop.provisionprofile,
+#   entitlements: build/macos/entitlements.mas.plist,
+#   entitlementsInherit: build/macos/entitlements.mas.inherit.plist,
+#   gatekeeperAssess: false,
+#   asarUnpack: []
+# }
+
+##
+# Target package type: list of AppImage, snap, deb, rpm, freebsd, pacman, p5p, apk, 7z, zip, tar.xz, tar.lz, tar.gz, tar.bz2, dir.
+linux:
+  target:
+    - AppImage
+    - deb
+
+##
+publish:
+  provider: generic
+  url: 'https://b3-space.imsdom.com/release/${env.APP_ARCH}/'
+  updaterCacheDirName: imsdom-updater
+##
+copyright: 'Copyright © 2020 Imsdom'

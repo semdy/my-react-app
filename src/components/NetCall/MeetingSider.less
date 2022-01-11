@@ -1,0 +1,60 @@
+@import '~@/style/themes/default.less';
+
+.meeting-sider {
+  position: relative;
+  width: 230px;
+  padding: 15px 10px 0;
+  display: flex;
+  flex-direction: column;
+
+  &-hd {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    color: #fff;
+
+    span {
+      font-size: 13px;
+    }
+
+    .app-icon {
+      cursor: pointer;
+    }
+  }
+
+  &-bd {
+    margin-bottom: 10px;
+  }
+}
+
+.meeting-search-wrapper {
+  width: 100%;
+  overflow: hidden;
+}
+
+.meeting-search-bd {
+  position: relative;
+  padding-right: 24px;
+  margin-right: 0;
+  transition: margin-right 0.3s;
+
+  .meeting-share {
+    position: absolute;
+    right: 0;
+    top: 10px;
+    cursor: pointer;
+  }
+
+  &.focus {
+    margin-right: -24px;
+  }
+}
+
+.meeting-members-wrapper {
+  flex: 1;
+  margin-left: -10px;
+  margin-right: -10px;
+  margin-bottom: 0;
+  overflow: hidden;
+}

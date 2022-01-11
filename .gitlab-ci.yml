@@ -1,0 +1,211 @@
+image: node:12.14.0
+
+variables:
+  CACHE_KEY: "$CI_COMMIT_REF_NAME-$CI_PROJECT_TITLE"
+  SERVICE_GROUP: "web-client"
+  SERVICE_NAME: "www-pc-client"
+  JUMPER: "47.101.34.194"
+  JUMPER_LAN: "172.19.121.118"
+  CI_INFO_TEMPLATE: "public/index.html"
+
+.functions:
+  script:
+    - &init_ssh_agent_func >
+      init_ssh_agent() {
+        which ssh-agent
+        eval "$(ssh-agent -s)"
+        mkdir -p ~/.ssh
+        chmod 700 ~/.ssh
+        echo "${ARG_PRIVATE_KEY}" | tr -d '\r' | ssh-add - > /dev/null
+        echo "${ARG_KNOWN_HOSTS}" > ~/.ssh/known_hosts
+        chmod 644 ~/.ssh/known_hosts
+      }
+    - &replace_ci_info_func >
+      replace_ci_info() {
+        cat ./ci_info_template.txt > $CI_INFO_TEMPLATE
+        which sed
+        sed -i -e "s|#ENV_SUFFIX|$ENV_SUFFIX|g"                   $CI_INFO_TEMPLATE
+        sed -i -e "s|#CI_PIPELINE_ID|$CI_PIPELINE_ID|g"           $CI_INFO_TEMPLATE
+        sed -i -e "s|#CI_JOB_ID|$CI_JOB_ID|g"                     $CI_INFO_TEMPLATE
+        sed -i -e "s|#CI_COMMIT_REF_NAME|$CI_COMMIT_REF_NAME|g"   $CI_INFO_TEMPLATE
+        sed -i -e "s|#CI_COMMIT_SHA|$CI_COMMIT_SHA|g"             $CI_INFO_TEMPLATE
+        sed -i -e "s|#CI_COMMIT_SHORT_SHA|$CI_COMMIT_SHORT_SHA|g" $CI_INFO_TEMPLATE
+        printf "\033[1;36m%s\033[0m\n" "CI Build Information:"
+        cat $CI_INFO_TEMPLATE
+      }
+    - &clean_artifacts_cache_func >
+      clean_artifacts_cache() {
+        ls -lh ./artifacts
+        cd ./artifacts
+        ls -1t | grep "${ENV_SUFFIX}.tar.gz" | sort -Vr | awk '{if(NR>10)print}' | xargs rm -rf
+        cd ../
+        ls -lh ./artifacts
+      }
+    - &upload_func >
+      upload_do() {
+        if [ ${ENV_SUFFIX} = 'production' ]; then
+          ARG_UPLOAD_TO="upload@${JUMPER}"
+          ARG_UPLOAD_HOME="/home/upload/${SERVICE_GROUP}"
+        fi
+        printf "\033[1;36m${ARG_UPLOAD_TO}\033[0m # id\n"
+        ssh ${ARG_UPLOAD_TO} 'id'
+        ssh ${ARG_UPLOAD_TO} "mkdir -p ${ARG_UPLOAD_HOME}/${SERVICE_NAME}"
+        scp ./artifacts/${CI_PIPELINE_ID}_${ENV_SUFFIX}.tar.gz  ${ARG_UPLOAD_TO}:${ARG_UPLOAD_HOME}/${SERVICE_NAME}/dist.tar.gz
+      }
+    - &build_with_env_func >
+      build_with_env() {
+        #yarn config set registry https://registry.npm.taobao.org
+        yarn --verbose build
+        sed -i -e "s/#CI_PIPELINE_ID/$CI_PIPELINE_ID/g" 'src/ci.nginx.conf'
+        cp src/ci.nginx.conf ./dist/
+        mkdir -p ./dist/mobile/office
+        cp -r ./mobileOffice/* ./dist/mobile/office
+        ls -lh ./dist
+        mkdir -p artifacts && tar czvf ./artifacts/${CI_PIPELINE_ID}_${ENV_SUFFIX}.tar.gz ./dist
+        rm -rf ./dist/*
+      }
+    - &deploy_web_client_func >
+      deploy_web_client() {
+        SCP="scp -Cr -o StrictHostKeyChecking=no"
+        SERVICE_HOME="/home/imsdom/${SERVICE_GROUP}/${SERVICE_NAME}"
+        SERVICE_TARBAL="${SERVICE_NAME}/dist.tar.gz"
+        ARG_UPLOAD_TO="upload-${ENV_SUFFIX}@${JUMPER}"
+        ARG_UPLOAD_HOME="/home/upload-${ENV_SUFFIX}/${SERVICE_GROUP}"
+        printf "\033[1;36m%s\033[0m %s\n" "${ARG_UPLOAD_TO}" "trying"
+        ssh ${ARG_UPLOAD_TO} 'id'
+        printf "\033[1;36m%s\033[0m %s\n" "${SERVICE_HOST}" "distributing ${SERVICE_NAME}"
+        ssh ${ARG_UPLOAD_TO} "ssh ${SERVICE_HOST} 'mkdir -p ${SERVICE_HOME}' "
+        ssh ${ARG_UPLOAD_TO} "${SCP} ${ARG_UPLOAD_HOME}/${SERVICE_TARBAL} ${SERVICE_HOST}:/home/imsdom/${SERVICE_GROUP}/${SERVICE_TARBAL}"
+        printf "\033[1;36m%s\033[0m %s\n" "${SERVICE_HOST}" "extracting ${SERVICE_TARBAL}"
+        ssh ${ARG_UPLOAD_TO} "ssh ${SERVICE_HOST} 'cd ${SERVICE_HOME} && rm -rf ./dist/* && tar xzvf dist.tar.gz ./dist' "
+        printf "\033[1;36m%s\033[0m %s\n" "${SERVICE_HOST}" "restarting ${SERVICE_NAME}"
+        ssh ${ARG_UPLOAD_TO} "ssh ${SERVICE_HOST} 'cd ${SERVICE_GROUP} && docker-compose restart ${SERVICE_NAME}' "
+      }
+
+.ssh_agent:
+  before_script: &ssh_agent
+    - ARG_PRIVATE_KEY=${SSH_PRIVATE_KEY}; ARG_KNOWN_HOSTS=${SSH_KNOWN_HOSTS}
+    - *clean_artifacts_cache_func
+    - *upload_func
+    - *init_ssh_agent_func
+    - init_ssh_agent
+
+.upload_shared: &upload_shared
+  stage: upload
+  variables:
+    GIT_STRATEGY: none
+    GIT_CHECKOUT: "false"
+  cache:
+    key: $CACHE_KEY
+    paths: ["artifacts/"]
+    policy: pull
+  before_script: *ssh_agent
+  when: on_success
+
+.build_shared: &build_shared
+  stage: build
+  cache:
+    key: $CACHE_KEY
+    untracked: false
+    paths: ["node_modules/", "artifacts/"]
+    policy: pull-push
+  before_script:
+    - *replace_ci_info_func
+    - *build_with_env_func
+    - yarn config set registry https://registry.npm.taobao.org
+    - yarn install --frozen-lockfile --non-interactive
+    - ls -l node_modules | wc -l
+    - cp $CI_INFO_TEMPLATE ./ci_info_template.txt
+  when: always
+
+.build_then_upload: &build_then_upload
+  stage: build
+  cache:
+    key: $CACHE_KEY
+    untracked: false
+    paths: ["node_modules/"]
+    policy: pull-push
+  before_script:
+    - *replace_ci_info_func
+    - *build_with_env_func
+    - ARG_PRIVATE_KEY=${SSH_PRIVATE_KEY}; ARG_KNOWN_HOSTS=${SSH_KNOWN_HOSTS}
+    - *init_ssh_agent_func
+    - init_ssh_agent
+    - *upload_func
+   #- yarn config set registry https://registry.npm.taobao.org
+    - yarn install --frozen-lockfile --non-interactive
+    - ls -l node_modules | wc -l
+    - cp $CI_INFO_TEMPLATE ./ci_info_template.txt
+  script:
+    - ARG_UPLOAD_TO="upload-${ENV_SUFFIX}@${JUMPER}"; ARG_UPLOAD_HOME="/home/upload-${ENV_SUFFIX}/${SERVICE_GROUP}"
+    - replace_ci_info
+    - build_with_env
+    - upload_do
+  when: always
+
+.deploy_service: &deploy_service
+  stage: deploy
+  before_script: *ssh_agent
+  script:
+    - *deploy_web_client_func
+    - deploy_web_client
+  when: on_success
+
+stages: [prepare, build, upload, deploy, clean, restart, publish]
+
+################################
+
+for-develop:
+  variables: { ENV_SUFFIX: "develop" }
+  <<: *build_then_upload
+  only: [/^develop$/]
+
+to-develop:
+  variables:
+    GIT_STRATEGY: "none"
+    GIT_CHECKOUT: "false"
+    ENV_SUFFIX: "develop"
+    SERVICE_HOST: "imsdom@imsdom008"
+  <<: *deploy_service
+  only: [/^develop$/]
+
+################################
+
+for-testing:
+  variables: { ENV_SUFFIX: "testing" }
+  <<: *build_then_upload
+  only: [/^release\/1\.0.37$/]
+
+to-testing:
+  variables:
+    GIT_STRATEGY: "none"
+    GIT_CHECKOUT: "false"
+    ENV_SUFFIX: "testing"
+    SERVICE_HOST: "imsdom@imsdom007"
+  <<: *deploy_service
+  only: [/^release\/1\.0.37$/]
+
+################################
+
+for-staging:
+  variables: { ENV_SUFFIX: "staging" }
+  <<: *build_then_upload
+  only: [/^release\/1\.0.36$/]
+
+to-staging:
+  variables:
+    GIT_STRATEGY: "none"
+    GIT_CHECKOUT: "false"
+    ENV_SUFFIX: "staging"
+    SERVICE_HOST: "imsdom@imsdom006"
+  <<: *deploy_service
+  only: [/^release\/1\.0.36$/]
+
+################################
+
+for-production:
+  variables: { ENV_SUFFIX: "production" }
+  <<: *build_then_upload
+  stage: publish
+  when: manual
+  only: [/^release\/1\.0.34$/]

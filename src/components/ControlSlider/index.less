@@ -1,0 +1,43 @@
+@import '~antd/lib/style/themes/default.less';
+
+.control-slider {
+  &-wrapper {
+    height: 110px;
+    border-radius: 2px;
+    background-color: rgba(0, 0, 0, 0.9);
+  }
+
+  &-text {
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #fff;
+    user-select: none;
+  }
+
+  &-inner {
+    height: 80px;
+    padding-bottom: 8px;
+
+    .ant-slider-vertical {
+      margin: 0 auto;
+
+      .ant-slider-rail,
+      .ant-slider-track {
+        width: 2px;
+      }
+    }
+
+    .ant-slider-handle {
+      width: 12px;
+      height: 12px;
+      margin-left: -5px;
+      margin-bottom: 0;
+      border: none;
+    }
+
+    .ant-slider-mark {
+      display: none;
+    }
+  }
+}

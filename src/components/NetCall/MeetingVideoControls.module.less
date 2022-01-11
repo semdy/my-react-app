@@ -1,0 +1,62 @@
+.ShareDocBtnWrapper {
+  display: inline;
+  position: relative;
+}
+
+.shareDocInfo {
+  width: 360px;
+  height: 36px;
+  background: rgba(51, 51, 51, 0.9);
+  border-radius: 3px;
+  position: absolute;
+  top: -50px;
+  left: -225px;
+  display: flex;
+  justify-content: center;
+}
+
+.text {
+  font-size: 14px;
+  font-weight: 400;
+  color: #fff;
+  display: inline-block;
+  line-height: 36px;
+  height: 36px;
+}
+
+.textBtn {
+  &:extend(.text);
+  cursor: pointer;
+  color: #5258dd;
+}
+
+.fileName {
+  &:extend(.text);
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 88px;
+  text-overflow: ellipsis;
+  display: inline-block;
+}
+
+.fileNameBtn {
+  &:extend(.text);
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 110px;
+  text-overflow: ellipsis;
+  display: inline-block;
+  color: #5258dd;
+}
+
+.redPoint {
+  width: 8px;
+  height: 8px;
+  background: #f54a44;
+  border-radius: 4px;
+  position: absolute;
+  top: -4px;
+  left: 32px;
+  z-index: 1203;
+}

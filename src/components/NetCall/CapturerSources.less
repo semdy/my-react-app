@@ -1,0 +1,96 @@
+@import '~antd/lib/style/themes/default.less';
+@import '~@/style/themes/default.less';
+
+.capturer-source-wrapper {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 650px;
+  height: 415px;
+  background-color: rgba(51, 51, 51, 0.9);
+  border-radius: 10px;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  -webkit-app-region: no-drag;
+}
+
+.capturer-source-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  width: 100%;
+  padding-left: 40px;
+  margin-bottom: 10px;
+}
+
+.capturer-source-close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  padding: 8px;
+  color: #ccc;
+  cursor: pointer;
+
+  &:hover {
+    color: #fff !important;
+  }
+}
+
+.capturer-source-list {
+  width: 610px;
+  height: 335px;
+  display: flex;
+  flex-wrap: wrap;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.capturer-source-item {
+  width: 200px;
+  padding: 20px;
+  text-align: center;
+}
+
+.capturer-source-name {
+  font-size: 14px;
+  color: #ccc;
+  margin-top: 5px;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.capturer-source-thumbnail {
+  position: relative;
+  width: 100%;
+  height: 100px;
+  border-radius: 5px;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-size: cover;
+  cursor: pointer;
+}
+
+.capturer-source-icon {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translate(-45%, -45%);
+  width: 30px;
+  height: 30px;
+}
+
+.capturer-source-loading {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 40px;
+  color: @primary-color;
+  z-index: 10;
+}

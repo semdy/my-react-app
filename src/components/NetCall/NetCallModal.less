@@ -1,0 +1,54 @@
+@import '~antd/lib/style/themes/default.less';
+
+@color: #ccc;
+
+.netcall-modal {
+  .ant-modal-content {
+    background-color: fadeout(#333, 5%);
+    color: @color;
+  }
+
+  .ant-modal-header {
+    background-color: transparent;
+  }
+
+  .search-input {
+    background-color: fadeout(#fff, 90%);
+    color: @color;
+  }
+
+  .ant-modal-title,
+  .ant-breadcrumb-separator,
+  .ant-checkbox-wrapper,
+  .ant-checkbox-group,
+  .checkGroup-department h3,
+  .checkGroup-wrapper .checkGroup-department span {
+    color: @color;
+  }
+
+  .ant-checkbox-disabled + span {
+    color: darken(@color, 20%);
+  }
+
+  .ant-checkbox-disabled.ant-checkbox-checked .ant-checkbox-inner::after {
+    border-color: @color;
+  }
+
+  .ant-breadcrumb-link {
+    color: @color !important;
+  }
+
+  .ant-checkbox-inner {
+    background-color: transparent;
+    border-color: @color;
+  }
+
+  .ant-checkbox-checked .ant-checkbox-inner {
+    background-color: @primary-color;
+  }
+
+  .checkGroup-wrapper,
+  .checkGroup-wrapper .checkGroup-item:first-child {
+    border-color: #555;
+  }
+}

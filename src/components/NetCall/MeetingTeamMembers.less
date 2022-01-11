@@ -1,0 +1,103 @@
+@import '~@/style/themes/default.less';
+
+.meeting-teamUsers {
+  &-wrapper {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+  }
+
+  &-backdrop {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: fadeout(#000, 50%);
+  }
+
+  &-hd {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 35px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #333;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 -12px 20px -6px rgba(0, 0, 0, 0.5);
+  }
+
+  &-content {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  &-list {
+    background-color: #333;
+    height: 0;
+    overflow: hidden;
+    transition: all 0.4s;
+  }
+
+  &-wrapper.open {
+    top: 0;
+  }
+
+  &-wrapper.open &-angle {
+    transform: rotate(-180deg);
+  }
+
+  &-wrapper.open &-list {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    height: 280px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+    }
+  }
+
+  &-item {
+    position: relative;
+    padding: 8px 10px;
+
+    .app-avatar {
+      //width: 36px;
+      //height: 36px;
+      //border-radius: 8px;
+      margin-right: 10px;
+    }
+
+    &-extra,
+    .netcall-button {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      font-size: 12px;
+      transform: translateY(-50%);
+    }
+
+    .netcall-button {
+      border-radius: 4px;
+      padding: 0.42em;
+      display: none;
+    }
+
+    &:hover {
+      background-color: fadeout(#000, 70%);
+
+      .netcall-button {
+        display: block;
+      }
+    }
+  }
+}

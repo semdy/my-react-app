@@ -1,0 +1,120 @@
+@import '~antd/lib/style/themes/default.less';
+@import '~@/style/themes/default.less';
+
+.meeting-member-item {
+  position: relative;
+  width: 210px;
+  height: 120px;
+  border-radius: 8px;
+  color: #fff;
+  background-color: darken(#333, 5%);
+  border: 2px solid transparent;
+  margin-bottom: 10px;
+  overflow: hidden;
+
+  .meeting-tip {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    z-index: 1;
+
+    .app-icon {
+      font-size: 26px;
+    }
+  }
+
+  .netcall-button.item-control {
+    border-radius: 4px;
+    vertical-align: top;
+  }
+
+  .lock-button {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+  }
+
+  &-switch {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 5;
+
+    .netcall-button {
+      margin-left: 8px;
+    }
+  }
+
+  &-bottom {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    bottom: 4px;
+    font-size: 12px;
+    color: #fff;
+    z-index: 5;
+
+    .netcall-button {
+      margin-left: 5px;
+    }
+  }
+
+  &.actived {
+    transition: border-color 0.3s;
+    border-color: @primary-color;
+  }
+
+  &-actions,
+  &-switch {
+    display: none;
+  }
+
+  &:hover &-actions,
+  &:hover &-switch {
+    display: block;
+  }
+
+  &.mini {
+    width: auto;
+    height: auto;
+    margin-left: -10px;
+    margin-right: -10px;
+    padding: 10px 10px 14px;
+    border-radius: 0;
+    background-color: transparent;
+
+    .app-icon-button {
+      transition: none;
+    }
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.4);
+      transition: background-color 0.4s;
+    }
+
+    .meeting-tip {
+      display: none;
+    }
+  }
+
+  &.mini &-bottom + div {
+    display: none !important;
+  }
+
+  &-avatar {
+    position: relative;
+    display: inline-block;
+    margin-right: 10px;
+
+    .netcall-button {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      transform: translate(40%, 40%);
+    }
+  }
+}
