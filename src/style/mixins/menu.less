@@ -1,0 +1,27 @@
+@import '~antd/lib/style/themes/default.less';
+
+.menuBox() {
+  border-radius: 6px;
+  background-color: #fff;
+  -webkit-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.menu() {
+  padding: 4px 0;
+  .menuBox();
+}
+
+.menuItem() {
+  padding: 5px 12px;
+  color: @text-color;
+  list-style: none;
+  font-size: 14px;
+  line-height: 22px;
+  white-space: nowrap;
+  cursor: pointer;
+
+  &:hover {
+    background-color: @background-color-base;
+  }
+}

@@ -1,0 +1,27 @@
+@import '~antd/lib/style/themes/default.less';
+
+@chat-header-height: 60px;
+@session-board-width: 300px;
+@app-bar-width: 65px;
+@app-bar-backgroundColor: #25243c;
+@default-action-icon-color: #91919f;
+@hover-action-icon-color: #666;
+@blue-btn-color: #5153e0;
+@blue-btn-hover-color: #b1b2f7;
+@highlight-color: @primary-color;
+@highlight-color-reverse: #f90;
+
+@gallery-max-width: 900px;
+@gallery-min-width: 280px;
+@gallery-control-gap: 60px;
+
+@main-window-toolbar-height: 25px;
+
+.gradient-btn() {
+  border: transparent;
+  background-image: linear-gradient(to right, #5258dd, #5bc9f4);
+
+  &:hover {
+    background-image: linear-gradient(to right, darken(#5258dd, 10%), darken(#5bc9f4, 10%));
+  }
+}

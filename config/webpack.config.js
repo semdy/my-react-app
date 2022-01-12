@@ -18,7 +18,7 @@ const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin')
 const getCSSModuleLocalIdent = require('../scripts/getCSSModuleLocalIdent')
 const ESLintPlugin = require('eslint-webpack-plugin')
 const AntDayJsWebpackPlugin = require('antd-dayjs-webpack-plugin')
-const nodeExternals = require('webpack-node-externals')
+// const nodeExternals = require('webpack-node-externals')
 const paths = require('./paths')
 const modules = require('./modules')
 const getClientEnvironment = require('./env')
@@ -31,9 +31,9 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 const chalk = require('react-dev-utils/chalk')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
-const pxtorem = require('postcss-pxtorem')
-const antDarkTheme = require('@ant-design/dark-theme')
-const { getThemeVariables } = require('antd/dist/theme')
+// const pxtorem = require('postcss-pxtorem')
+// const antDarkTheme = require('@ant-design/dark-theme')
+// const { getThemeVariables } = require('antd/dist/theme')
 const VendorsPrefetchPlugin = require('../scripts/VendorsPrefetchPlugin')
 const getVendorsFiles = require('../scripts/getVendorsFiles')
 const createEnvironmentHash = require('./webpack/persistentCache/createEnvironmentHash')
@@ -60,14 +60,9 @@ const babelRuntimeRegenerator = require.resolve('@babel/runtime/regenerator', {
 // Some apps do not need the benefits of saving a web request, so not inlining the chunk
 // makes for a smoother build process.
 const shouldInlineRuntimeChunk = process.env.INLINE_RUNTIME_CHUNK !== 'false'
-
 const emitErrorsAsWarnings = process.env.ESLINT_NO_DEV_ERRORS === 'true'
 const disableESLintPlugin = process.env.DISABLE_ESLINT_PLUGIN === 'true'
-
 const imageInlineSizeLimit = parseInt(process.env.IMAGE_INLINE_SIZE_LIMIT || '10000')
-
-const fontInlineSizeLimit = parseInt(process.env.FONT_INLINE_SIZE_LIMIT || '10000')
-
 const shouldPxToRem = process.env.PX_TO_REM === 'true'
 
 // Check if TypeScript is setup
@@ -122,7 +117,7 @@ module.exports = function (webpackEnv) {
   const getPxToRemOptions = () => {
     return (
       shouldPxToRem && [
-        'pxtorem',
+        'postcss-pxtorem',
         {
           rootValue: 37.5,
           propList: [
@@ -471,39 +466,26 @@ module.exports = function (webpackEnv) {
                 }
               }
             },
-            // {
-            //   test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-            //   parser: {
-            //     dataUrlCondition: {
-            //       maxSize: fontInlineSizeLimit
-            //     }
-            //   },
-            //   options: {
-            //     name: 'static/fonts/[name].[hash:8].[ext]'
-            //   }
-            // },
+            {
+              test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+              loader: require.resolve('file-loader'),
+              options: {
+                name: 'static/fonts/[name].[hash:8].[ext]'
+              }
+            },
             {
               test: /\.svg$/,
-              use: [
-                {
-                  loader: require.resolve('@svgr/webpack'),
-                  options: {
-                    prettier: false,
-                    svgo: false,
-                    svgoConfig: {
-                      plugins: [{ removeViewBox: false }]
-                    },
-                    titleProp: true,
-                    ref: true
-                  }
+              loader: require.resolve('@svgr/webpack'),
+              include: paths.appIcons,
+              options: {
+                prettier: false,
+                svgo: false,
+                svgoConfig: {
+                  plugins: [{ removeViewBox: false }]
                 },
-                {
-                  loader: require.resolve('file-loader'),
-                  options: {
-                    name: 'static/images/[name].[hash].[ext]'
-                  }
-                }
-              ],
+                titleProp: true,
+                ref: true
+              },
               issuer: {
                 and: [/\.(ts|tsx|js|jsx|md|mdx)$/]
               }

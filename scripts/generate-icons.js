@@ -4,7 +4,7 @@ const path = require('path')
 const paths = require('../config/paths')
 
 const getIconFiles = () => {
-  const files = glob.sync('src/assets/svgs/**/*.svg')
+  const files = glob.sync('src/assets/icons/**/*.svg')
   return files.map(filePath => {
     const fileName = path.basename(filePath, '.svg')
     const camelName = fileName.replace(/\b-?(\w)/g, (match, name) => {
@@ -21,7 +21,7 @@ const generateIconsData = () => {
       `import React from 'react'
 import propTypes from 'prop-types'
 import IconBase from '@/components/Icon/IconBase'
-import { ReactComponent as ${icon.camelName}Svg } from '${icon.path.replace('src/', '@/')}'
+import ${icon.camelName}Svg from '${icon.path.replace('src/', '@/')}'
 
 const ${icon.camelName} = props => {
   return (
