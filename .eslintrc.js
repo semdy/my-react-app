@@ -42,6 +42,7 @@ module.exports = {
     'import/no-dynamic-require': 0,
     'import/no-extraneous-dependencies': 0,
     'import/prefer-default-export': 0,
+    'import/no-import-module-exports': 0,
     'import/no-unresolved': [2, { ignore: ['^@/'] }],
     // 'import/no-extraneous-dependencies': [
     //   2,
@@ -74,6 +75,7 @@ module.exports = {
     'class-methods-use-this': 0,
     'func-names': ['error', 'never'],
     'comma-dangle': [1, 'never'],
+    'default-param-last': 0,
     'formatjs/no-offset': 'error',
     'formatjs/enforce-default-message': ['error', 'literal'],
     'formatjs/enforce-placeholders': ['error'],

@@ -1,0 +1,546 @@
+@import '~antd/lib/style/themes/default.less';
+@import '~@/style/themes/default.less';
+
+.main {
+  position: relative;
+  padding: 100px 20px 0 20px;
+  display: flex;
+  max-width: 960px;
+  min-width: 780px;
+  margin-left: auto;
+  margin-right: auto;
+
+  :global {
+    .app-icon {
+      cursor: pointer;
+      transition: color 0.3s;
+      line-height: 0 !important;
+      vertical-align: middle;
+
+      &:hover {
+        color: @primary-color;
+      }
+    }
+
+    .ant-input-group-addon {
+      background-color: #fff;
+    }
+
+    .ant-select-selector {
+      height: 38px !important;
+    }
+  }
+
+  > .aside,
+  > .login {
+    position: relative;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 15px;
+  }
+
+  .aside {
+    flex: 1;
+    width: 100%;
+    height: 480px;
+    margin-top: 0;
+    background-color: #d8d8d8;
+    overflow: hidden;
+  }
+
+  .login {
+    flex: 1;
+  }
+
+  h1 {
+    font-size: 26px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .titleDesc {
+    line-height: 17px;
+    font-size: 14px;
+    color: #91919f;
+    margin-bottom: 10px;
+  }
+
+  h4 {
+    font-size: 15px;
+    color: #666;
+    font-weight: normal;
+  }
+
+  .forget {
+    font-size: 13px;
+    color: #999;
+  }
+
+  h6 {
+    font-size: 13px;
+    color: #888;
+    text-align: center;
+  }
+
+  .loginWithMail {
+    color: @primary-color;
+    font-weight: normal;
+    font-size: 15px;
+    margin-right: 15px;
+  }
+
+  .loginButton {
+    float: right;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  // .rememberLogin,
+  .loginAction {
+    text-align: center;
+  }
+
+  .rememberLogin {
+    padding-top: 15px;
+  }
+
+  .nextActions {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #fff;
+    padding-top: 98px;
+    overflow: auto;
+    z-index: 20;
+  }
+}
+
+.titleDescCreate {
+  color: @primary-color;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.titleDescDomain {
+  color: @primary-color;
+  cursor: pointer;
+}
+
+.stepMain {
+  padding: 0 10px;
+}
+
+.nextActions {
+  padding: 25px 20px;
+}
+
+.stepActions {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  padding: 25px + @main-window-toolbar-height 20px 10px;
+  z-index: 10;
+}
+
+.stepBack {
+  color: #939aa3;
+  margin-right: 5px;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.stepLogo {
+  cursor: default !important;
+
+  svg {
+    height: 24px !important;
+  }
+}
+
+.stepClose {
+  color: #848990;
+  padding: 8px;
+  float: right;
+  cursor: pointer;
+}
+
+// 验证手机号
+.sendToMsg {
+  color: #666;
+  font-size: 15px;
+  margin-bottom: 30px;
+}
+
+.sendHint {
+  color: #999;
+}
+
+.sendInput {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.resend {
+  display: inline-block;
+  font-size: 16px;
+
+  > span {
+    color: #999;
+  }
+
+  .resendBtn {
+    color: @primary-color;
+    cursor: pointer;
+  }
+
+  :global {
+    .anticon {
+      margin-right: 5px;
+    }
+  }
+}
+
+.verifyActions {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 140px;
+
+  .verify {
+    color: @primary-color;
+    font-size: 16px;
+  }
+
+  &.right {
+    justify-content: flex-end;
+  }
+
+  a {
+    color: #999;
+  }
+
+  :global {
+    .ant-btn {
+      padding-left: 30px;
+      padding-right: 30px;
+    }
+  }
+}
+
+.verifyAction {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 60px;
+
+  .verify {
+    color: @primary-color;
+    font-size: 16px;
+  }
+
+  &.right {
+    justify-content: flex-end;
+  }
+
+  :global {
+    .ant-btn {
+      padding-left: 30px;
+      padding-right: 30px;
+    }
+  }
+}
+
+// 设置密码
+.passwordBox {
+  margin-top: 20px;
+  // margin-bottom: 40px;
+}
+
+.repeatPassword {
+  margin-top: 5px;
+}
+
+.mailBox {
+  // margin-bottom: 60px;
+}
+
+.createHelper {
+  color: #999;
+  margin-top: 188px;
+  //text-align: center;
+}
+
+.createHelperEmail {
+  color: #999;
+  margin-top: 188px;
+}
+
+.createHelperLogon {
+  color: #999;
+  margin-top: 115px;
+}
+
+.inputWithPrefix {
+  .formItemPrefix {
+    position: relative;
+    width: 5em;
+    text-align: center;
+    font-size: 16px;
+
+    &:after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 5%;
+      bottom: 5%;
+      border-right: 1px solid #ccc;
+    }
+  }
+
+  :global(.ant-input-prefix) {
+    margin-right: 10px;
+  }
+}
+
+.peopleNumberInput {
+  display: flex;
+  padding-left: 11px;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  align-items: center;
+
+  .prefix {
+    position: absolute;
+    width: 5em;
+    text-align: center;
+    font-size: 16px;
+
+    &:after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 5%;
+      bottom: 5%;
+      border-right: 1px solid #ccc;
+    }
+  }
+}
+
+.peopleNumberSelect {
+  margin-left: 80px !important;
+}
+
+// 成员邀请
+.inviteList {
+  max-height: 320px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+:global {
+  .index_verifyActions__3LuTD a {
+    color: #5153e0;
+  }
+}
+
+.skip {
+  margin-right: 40px;
+}
+
+.inviteAction {
+  color: @primary-color;
+  font-size: 15px;
+
+  :global {
+    .anticon {
+      margin-right: 5px;
+    }
+  }
+}
+
+//成功页
+.successTip {
+  color: #999;
+  margin: 50px 0 20px 0;
+}
+
+.successHint {
+  padding-bottom: 90px;
+}
+
+//选择团队页面
+.choiceTeam {
+  font-size: 18px;
+  color: rgba(102, 102, 102, 1);
+  line-height: 40px;
+  margin: 16px 0 16px 20px;
+}
+
+.teamList {
+  position: relative;
+  height: 220px;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  .tips {
+    font-size: 22px;
+    color: #333;
+    line-height: 50px;
+    margin: 30px 0 0 20px;
+  }
+
+  .team {
+    display: flex;
+    border-radius: 5px;
+
+    .delete {
+      margin-right: 21px;
+      color: #f14c49;
+      font-size: 40px;
+      font-weight: 200;
+      line-height: 45px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    &:hover {
+      background: rgba(243, 243, 247, 1);
+    }
+
+    &.active {
+      background: #dfe0f8;
+    }
+  }
+
+  .spin {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.nextStep {
+  overflow: hidden;
+  margin-top: 43px;
+
+  .createTeam {
+    float: left;
+    font-size: 16px;
+    color: rgba(81, 83, 224, 1);
+    line-height: 40px;
+
+    .icon {
+      font-size: 16px;
+      margin: 0 5px 0 25px;
+      vertical-align: text-bottom;
+    }
+  }
+
+  .steps {
+    float: right;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
+
+.onTeamModal {
+  width: 470px !important;
+
+  :global {
+    .ant-modal-confirm-body > .anticon + .ant-modal-confirm-title + .ant-modal-confirm-content {
+      margin-left: 0;
+    }
+  }
+}
+
+.qrLoginWrap {
+  position: absolute;
+  right: 40px;
+  top: 65px;
+  width: 420px;
+  height: 100%;
+  background-color: #fff;
+  text-align: center;
+  z-index: 200;
+}
+
+.qrcodeImg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 170px;
+  height: 170px;
+  margin: 60px auto 70px;
+  background-color: #f5f5f5;
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.loginPull {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 32px;
+  color: @primary-color !important;
+  overflow: hidden;
+
+  //&:after {
+  //  content: '';
+  //  position: absolute;
+  //  left: 0;
+  //  bottom: 0;
+  //  width: 0;
+  //  height: 0;
+  //  border-width: 14px;
+  //  border-style: dashed dashed solid solid;
+  //  border-color: transparent transparent #fff #fff;
+  //  box-shadow: 0 0 4px 8px rgba(0, 0, 0, .12);
+  //}
+
+  &:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 40px;
+    height: 40px;
+    background-color: #fff;
+    transform: rotate(45deg) translate(0, 72%);
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.phoneCode {
+  width: 85px !important;
+}
+
+.improvePhoneCode {
+  width: 85px !important;
+  margin: -5px -8px;
+}
+
+.addonBeforeText {
+  width: 63px;
+}
+
+.logonDesc {
+  color: #999;
+  margin-top: 140px;
+}
+
+.logonDescLink {
+  margin-left: 5px;
+  color: @primary-color;
+  cursor: pointer;
+}

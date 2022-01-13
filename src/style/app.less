@@ -303,8 +303,6 @@ select {
 .ant-dropdown-menu-item {
   position: relative;
 
-  color: rgba(0, 0, 0, 0.65) !important;
-
   .ant-upload {
     display: block !important;
     height: 100%;
@@ -322,6 +320,11 @@ select {
       color: @primary-color;
     }
   }
+}
+
+.ant-menu-item:not(.ant-menu-item-selected),
+.ant-dropdown-menu-item:not(.ant-dropdown-menu-item-selected) {
+  color: rgba(0, 0, 0, 0.65) !important;
 }
 
 .ant-spin-blur::after {

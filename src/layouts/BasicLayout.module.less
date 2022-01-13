@@ -1,0 +1,126 @@
+@import '~antd/lib/style/themes/default.less';
+@import '~@/style/themes/default.less';
+
+.appLayout {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  overflow: hidden;
+}
+
+.appBar {
+  position: relative;
+  flex: none;
+  width: @app-bar-width;
+  height: 100%;
+  min-height: 550px;
+  background-color: @app-bar-backgroundColor;
+  -webkit-app-region: drag;
+}
+
+.appBarUserMain {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.appBarUser {
+  position: relative;
+  width: 35px;
+  height: 35px;
+  margin: 0 auto 24px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.appBarUserDot {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #f24c4a;
+}
+
+.appBarAvatar {
+  display: inline-block;
+  width: 100% !important;
+  height: 100% !important;
+  border: 1px solid #fff;
+  // border-radius: 50% !important;
+  background-color: @primary-color;
+  overflow: hidden;
+  -webkit-app-region: no-drag;
+}
+
+.appBarNav {
+  position: absolute;
+  width: 100%;
+  top: 110px;
+}
+
+.appBarItem {
+  position: relative;
+  display: block;
+  padding: 14px 0;
+  text-align: center;
+  color: #65647c;
+  cursor: pointer;
+  -webkit-app-region: no-drag;
+
+  :global(.ant-badge) {
+    color: inherit;
+  }
+
+  &:hover {
+    color: #ccc;
+  }
+
+  &:global(.selected) {
+    color: #fff;
+    background-color: #3b395c;
+
+    &:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: 2px;
+      top: 25%;
+      bottom: 25%;
+      background-color: #55c8f6;
+    }
+  }
+}
+
+.appMain {
+  display: flex;
+  flex: 1;
+  height: 100%;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.appContent {
+  display: flex;
+  flex: 1;
+  height: 100%;
+  overflow: hidden;
+
+  //&.electron {
+  //  height: calc(100% - 25px);
+  //}
+  //
+  //&.web {
+  //  height: 100%;
+  //}
+}
+
+//.netCallWrapper {
+//  position: absolute;
+//  left: @app-bar-width + @session-board-width;
+//  right: 0;
+//  top: @chat-header-height;
+//}

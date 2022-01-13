@@ -199,12 +199,26 @@
     "resetMocks": true
   },
   "dependencies": {
+    "@ant-design/icons": "^4.7.0",
     "antd": "4.18.3",
+    "classnames": "^2.3.1",
+    "connected-react-router": "^6.9.2",
+    "copy-to-clipboard": "^3.3.1",
     "dayjs": "^1.10.7",
+    "fetch-progress": "^1.3.0",
+    "history": "^5.2.0",
+    "moment-timezone": "^0.5.34",
     "prop-types": "^15.8.1",
     "react": "17.0.2",
     "react-app-polyfill": "3.0.0",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "react-intl": "^5.24.2",
+    "react-redux": "^7.2.6",
+    "react-router-dom": "^6.2.1",
+    "redux": "^4.1.2",
+    "redux-thunk": "^2.4.1",
+    "textversionjs": "^1.1.3",
+    "ua-parser-js": "^1.0.2"
   },
   "devDependencies": {
     "@ant-design/dark-theme": "^2.0.2",
@@ -255,6 +269,7 @@
     "glob": "^7.2.0",
     "gulp-watch": "^5.0.1",
     "html-webpack-plugin": "^5.5.0",
+    "http-proxy-middleware": "^2.0.1",
     "husky": "^7.0.4",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.4.3",

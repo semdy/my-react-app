@@ -1,0 +1,111 @@
+@import '~antd/lib/style/themes/default.less';
+@import '~@/style/themes/default.less';
+
+.createSuccess {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: #fff;
+  overflow: auto;
+  z-index: 20;
+  padding: 100px 20px 25px;
+
+  :global {
+    .app-icon {
+      transition: color 0.3s;
+      line-height: 0 !important;
+      vertical-align: middle;
+    }
+  }
+}
+
+.stepActions {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  padding: 25px + @main-window-toolbar-height 20px 10px;
+  z-index: 10;
+}
+
+.stepBack {
+  color: #939aa3;
+  margin-right: 5px;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.stepLogo {
+  cursor: default !important;
+
+  svg {
+    height: 24px !important;
+  }
+}
+
+.stepClose {
+  color: #848990;
+  padding: 8px;
+  float: right;
+  cursor: pointer;
+}
+
+.stepMain {
+  position: relative;
+  //padding: 50px 10px 0;
+  max-width: 960px;
+  min-width: 780px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.mainImg {
+  width: 503px;
+  height: 314px;
+  margin: 0 auto;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.successTip {
+  color: #999;
+  font-size: 16px;
+  line-height: 23px;
+  margin-top: 11px;
+}
+
+.successHint {
+  color: #999;
+  margin-top: 20px;
+}
+
+.goAdminBtn {
+  color: #5153e0;
+  cursor: pointer;
+}
+
+.verifyAction {
+  margin-top: 30px;
+
+  :global {
+    .ant-btn {
+      //padding: 9px 112px;
+      border-radius: 3px;
+      height: 40px;
+      width: 354px;
+    }
+  }
+}
+
+.stepMainTitle {
+  color: #333;
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 37px;
+}

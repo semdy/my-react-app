@@ -1,4 +1,4 @@
-const proxy = require('http-proxy-middleware')
+const { createProxyMiddleware } = require('http-proxy-middleware')
 
 const apiMap = {
   dev: 'dev-',
@@ -12,7 +12,7 @@ const current = apiMap.dev
 module.exports = function (app) {
   app.use(
     '/apiuser',
-    proxy({
+    createProxyMiddleware({
       // target: 'http://47.101.33.78:6005',
       target: `https://${current}user-api.imsdom.com`,
       // target: 'http://192.168.8.148:6005',
@@ -23,7 +23,7 @@ module.exports = function (app) {
   )
   app.use(
     '/apispace',
-    proxy({
+    createProxyMiddleware({
       // target: 'http://47.101.33.78:6008',
       target: `https://${current}space-api.imsdom.com`,
       // target: 'http://192.168.3.22:6008',
@@ -35,7 +35,7 @@ module.exports = function (app) {
   )
   app.use(
     '/apical',
-    proxy({
+    createProxyMiddleware({
       // target: 'http://47.101.33.78:6007',
       target: `https://${current}cal-api.imsdom.com`,
       // target: 'http://192.168.8.122:6007',

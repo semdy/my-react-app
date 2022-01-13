@@ -1,0 +1,144 @@
+.FileInfoModal {
+  :global {
+    .ant-modal-body {
+      padding: 0 30px 30px 30px;
+    }
+    .ant-modal-header {
+      padding: 30px !important;
+    }
+  }
+}
+
+.Wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.Block {
+  width: 314px;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+}
+
+.Block + .Block {
+  margin-top: 40px;
+}
+
+.Split {
+  height: 280px;
+  border-right: 1px solid #e9e8ed;
+  margin-top: 32px;
+  margin-right: 30px;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  height: 20px;
+  line-height: 20px;
+  margin-bottom: 12px;
+}
+
+.Info {
+  display: flex;
+  flex-direction: row;
+  height: 20px;
+}
+
+.Info + .Info {
+  margin-top: 10px;
+}
+
+.infoName {
+  font-size: 14px;
+  font-weight: 400;
+  color: #646473;
+  line-height: 20px;
+}
+
+.infoContent {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 400;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-left: 10px;
+  padding-right: 10px;
+  line-height: 20px;
+}
+
+.jumper {
+  /* stylelint-disable-next-line */
+  &:extend(.infoContent);
+  color: #5258dd;
+  cursor: pointer;
+}
+
+.KnowledgeList {
+  width: 310px;
+  height: 280px;
+  background: #f8f8fb;
+  border-radius: 10px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.knowledgeListContainer {
+  width: 310px;
+  height: 264px;
+  overflow: auto;
+}
+
+.knItem {
+  height: 44px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  &:hover {
+    background: #e9e8ed;
+  }
+}
+
+.knIcon {
+  width: 28px;
+  height: 28px;
+  font-size: 100%;
+  margin-left: 16px;
+}
+
+.booked {
+  font-size: 14px;
+  font-weight: 400;
+  color: #5258dd;
+  margin-left: 10px;
+}
+
+.notBooked {
+  font-size: 14px;
+  font-weight: 400;
+  color: #333;
+  margin-left: 10px;
+}
+
+.knOwner {
+  font-size: 12px;
+  font-weight: 400;
+  color: #91919f;
+}
+
+.noRef {
+  font-size: 12px;
+  font-weight: 400;
+  color: #91919f;
+  user-select: none;
+}
+
+.knTip {
+  margin-left: 10px;
+  color: #91919f;
+}

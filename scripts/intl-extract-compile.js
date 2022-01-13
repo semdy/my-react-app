@@ -8,7 +8,7 @@ const tmpFilePath = path.resolve(__dirname, '../tmp.json')
 
 function extractFiles() {
   console.log(chalk.hex('#008000')('intl extract start...'))
-  const files = glob.sync('src/**/*.{js,jsx,ts,tsx}', { ignore: 'src/**/*.d.ts' })
+  const files = glob.sync('src/**/*.{js,jsx,ts,tsx}', { ignore: '**/*.d.ts' })
   return extract(files, {
     idInterpolationPattern: '[sha512:contenthash:base64:6]',
     additionalFunctionNames: ['t'],
@@ -24,9 +24,26 @@ function compileFiles() {
   return compile([tmpFilePath], {
     ast: false
   }).then(res => {
-    fs.writeFileSync(path.resolve(__dirname, '../public/locales/zh-CN.json'), res)
+    mixContent(res, true)
     fs.unlinkSync(tmpFilePath)
     console.log(chalk.hex('#1890FF')('intl compile success!'))
+  })
+}
+
+// 把新增的中文语言混合到其它语言包里
+function mixContent(res, minify) {
+  const zhJson = JSON.parse(res)
+  const langFiles = glob.sync('public/locales/*.js', { ignore: '**/zh_cn.js' })
+  langFiles.forEach(path => {
+    const content = fs.readFileSync(path)
+    let res
+    try {
+      res = new Function(`return ${Buffer.from(content).toString()}`)()
+    } catch (e) {
+      res = {}
+    }
+    const mixRes = Object.assign(zhJson, res)
+    fs.writeFileSync(path, `ims_translations = ${JSON.stringify(mixRes, null, minify ? 0 : 1)}`)
   })
 }
 
